@@ -7,7 +7,7 @@ import Foundation
 }
 
 public struct Namespace: CustomStringConvertible {
-    let name: String
+    @KebabCase var name: String
     let functions: [Function]
 
     public init(

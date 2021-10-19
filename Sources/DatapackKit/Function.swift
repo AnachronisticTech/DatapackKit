@@ -7,11 +7,11 @@ import Foundation
 }
 
 public struct Function: CustomStringConvertible {
-    let name: String
+    @KebabCase var name: String
     let commands: [Command]
 
     public init(
-        _ name: String, 
+        _ name: String,
         @MCFunctionBuilder _ commands: () -> [Command]
     ) {
         self.name = name

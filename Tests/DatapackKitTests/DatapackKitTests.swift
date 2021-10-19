@@ -12,7 +12,7 @@ final class DataPackKitTests: XCTestCase {
         let encoder = JSONEncoder()
         let data = try encoder.encode(pack)
         let decoder = JSONDecoder()
-        let decodedPack = try decoder.decode(DataPack.self, from: data)
+        let decodedPack = try decoder.decode(Datapack.self, from: data)
         XCTAssertEqual(pack, decodedPack)
     }
 

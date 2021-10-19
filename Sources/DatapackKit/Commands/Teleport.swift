@@ -43,9 +43,10 @@ extension Minecraft {
         public init(
             _ entity: EntitySelector, 
             to location: Vector3,
-            facing: EntitySelector
+            facing: EntitySelector,
+            anchor: FacingAnchor? = nil
         ) {
-            variant = .tLocationFacingEntity(entity, location, facing)
+            variant = .tLocationFacingEntity(entity, location, facing, anchor)
         }
 
         public var description: String {
@@ -62,8 +63,8 @@ extension Minecraft {
                     return "tp \(entity) \(location) \(rotation)"
                 case let .tLocationFacing(entity, location, facing): 
                     return "tp \(entity) \(location) facing \(facing)"
-                case let .tLocationFacingEntity(entity, location, facing): 
-                    return "tp \(entity) \(location) facing entity \(facing)"
+                case let .tLocationFacingEntity(entity, location, facing, anchor): 
+                    return "tp \(entity) \(location) facing entity \(facing)\(anchor != nil ? " \(anchor!)" : "")"
             }
         }
 
@@ -74,7 +75,7 @@ extension Minecraft {
             case tLocation(EntitySelector, Vector)
             case tLocationRotation(EntitySelector, Vector, Vector)
             case tLocationFacing(EntitySelector, Vector, Vector)
-            case tLocationFacingEntity(EntitySelector, Vector, EntitySelector)
+            case tLocationFacingEntity(EntitySelector, Vector, EntitySelector, FacingAnchor?)
         }
     }
 }

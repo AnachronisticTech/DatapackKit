@@ -27,7 +27,7 @@ extension Minecraft {
         public init(
             _ entity: EntitySelector, 
             to location: Vector3,
-            withRotation rotation: Vector3
+            withRotation rotation: Vector2
         ) {
             variant = .tLocationRotation(entity, location, rotation)
         }
@@ -55,26 +55,26 @@ extension Minecraft {
                 case let .targetDestination(target, destination): 
                     return "tp \(target) \(destination)"
                 case let .location(location): 
-                    return "tp \(location.x) \(location.y) \(location.z)"
+                    return "tp \(location)"
                 case let .tLocation(entity, location): 
-                    return "tp \(entity) \(location.x) \(location.y) \(location.z)"
+                    return "tp \(entity) \(location)"
                 case let .tLocationRotation(entity, location, rotation): 
-                    return "tp \(entity) \(location.x) \(location.y) \(location.z) \(rotation.x) \(rotation.y) \(rotation.z)"
+                    return "tp \(entity) \(location) \(rotation)"
                 case let .tLocationFacing(entity, location, facing): 
-                    return "tp \(entity) \(location.x) \(location.y) \(location.z) \(facing.x) \(facing.y) \(facing.z)"
+                    return "tp \(entity) \(location) facing \(facing)"
                 case let .tLocationFacingEntity(entity, location, facing): 
-                    return "tp \(entity) \(location.x) \(location.y) \(location.z) \(facing)"
+                    return "tp \(entity) \(location) facing entity \(facing)"
             }
         }
 
         enum TeleportVariant {
             case destination(EntitySelector)
             case targetDestination(EntitySelector, EntitySelector)
-            case location(Vector3)
-            case tLocation(EntitySelector, Vector3)
-            case tLocationRotation(EntitySelector, Vector3, Vector3)
-            case tLocationFacing(EntitySelector, Vector3, Vector3)
-            case tLocationFacingEntity(EntitySelector, Vector3, EntitySelector)
+            case location(Vector)
+            case tLocation(EntitySelector, Vector)
+            case tLocationRotation(EntitySelector, Vector, Vector)
+            case tLocationFacing(EntitySelector, Vector, Vector)
+            case tLocationFacingEntity(EntitySelector, Vector, EntitySelector)
         }
     }
 }

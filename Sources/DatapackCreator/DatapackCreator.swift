@@ -14,6 +14,8 @@ struct DatapackCreator {
                 to: Vector3(x: .local(-20), y: .local(2), z: .local(-5))
             )
 
+            Minecraft.Teleport(.executor, to: Vector2(x: .absolute(0), z: .absolute(0)), withRotation: Vector3(x: .relative(1), y: .absolute(5), z: .relative()))
+
             Minecraft.Gamemode(.creative)
 
             Minecraft.Say("Hello \(EntitySelector.executor)")

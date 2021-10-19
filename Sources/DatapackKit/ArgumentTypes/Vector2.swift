@@ -1,4 +1,4 @@
-public struct Vector2 {
+public struct Vector2: Vector {
     let x: ScalarDistance
     let z: ScalarDistance
 
@@ -17,4 +17,6 @@ public struct Vector2 {
         self.x = x
         self.z = z
     }
+
+    public var description: String { "\(x) \(z)" }
 }

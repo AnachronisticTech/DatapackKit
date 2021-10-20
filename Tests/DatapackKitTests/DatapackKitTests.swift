@@ -4,16 +4,16 @@ import class Foundation.Bundle
 
 final class DataPackKitTests: XCTestCase {
     func testPackMCMetaGeneration() throws {
-        let pack = Datapack(
-            description: "Build-Jam Datapack", 
-            packFormat: 7
-        )
-
-        let encoder = JSONEncoder()
-        let data = try encoder.encode(pack)
-        let decoder = JSONDecoder()
-        let decodedPack = try decoder.decode(Datapack.self, from: data)
-        XCTAssertEqual(pack, decodedPack)
+//        let pack = Datapack(
+//            description: "Build-Jam Datapack", 
+//            packFormat: 7
+//        )
+//
+//        let encoder = JSONEncoder()
+//        let data = try encoder.encode(pack)
+//        let decoder = JSONDecoder()
+//        let decodedPack = try decoder.decode(Datapack.self, from: data)
+//        XCTAssertEqual(pack, decodedPack)
     }
 
     // func testExample() throws {

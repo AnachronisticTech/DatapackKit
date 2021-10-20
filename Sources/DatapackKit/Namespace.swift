@@ -4,6 +4,14 @@ import Foundation
     public static func buildBlock(_ components: Function...) -> [Function] {
         components
     }
+
+    public static func buildBlock(_ components: [Function]...) -> [Function] {
+        components.flatMap({ $0 })
+    }
+
+    public static func buildArray(_ components: [[Function]]) -> [Function] {
+        components.flatMap({ $0 })
+    }
 }
 
 public struct Namespace: CustomStringConvertible {
@@ -20,10 +28,10 @@ public struct Namespace: CustomStringConvertible {
 
     public var description: String { 
         """
-          - \(name)
-        ------------------------
-        \(functions.map({ "  \($0.name).mcfunction\n" }).joined().trimmingCharacters(in: .newlines))
-        ------------------------
+          N \(name)
+          ------------------
+        \(functions.map({ "  \($0)\n" }).joined().trimmingCharacters(in: .newlines))
+          ------------------
         """
     }
 }

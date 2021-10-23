@@ -44,6 +44,7 @@ struct DatapackCreator {
                 Function("myFunc2") {
                     Minecraft.Gamemode(.adventure)
                 }
+                Advancement("MyAdvancment")
             }
 
             Namespace("NewNamespace") {

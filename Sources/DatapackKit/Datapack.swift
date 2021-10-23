@@ -1,11 +1,5 @@
 import Foundation
 
-@resultBuilder public struct MCDatapackBuilder {
-    public static func buildBlock(_ components: Namespace...) -> [Namespace] {
-        components
-    }
-}
-
 public struct Datapack: CustomStringConvertible {
     let packName: String
     let packFormat: PackFormat
@@ -14,7 +8,7 @@ public struct Datapack: CustomStringConvertible {
     public init(
         packName: String,
         packFormat: PackFormat,
-        @MCDatapackBuilder _ namespaces: () -> [Namespace]
+        @DatapackBuilder _ namespaces: () -> [Namespace]
     ) {
         self.packName = packName
         self.packFormat = packFormat

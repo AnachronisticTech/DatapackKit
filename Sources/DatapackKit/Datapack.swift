@@ -31,6 +31,43 @@ public struct Datapack: CustomStringConvertible {
         ====================
         """
     }
+
+    public func build(at url: URL? = nil) throws {
+        var buildUrl: URL
+        if let url = url {
+            buildUrl = url
+        } else if let url = FileManager.default.urls(for: .desktopDirectory, in: .allDomainsMask).first {
+            buildUrl = url
+        } else {
+            throw DatapackKitError.buildPathError
+        }
+
+        buildUrl.appendPathComponent(packName.kebabCase())
+        let mcmetaUrl = buildUrl.appendingPathComponent("pack.mcmeta")
+
+        try? FileManager.default.removeItem(atPath: buildUrl.relativePath)
+        try FileManager.default.createDirectory(atPath: buildUrl.relativePath, withIntermediateDirectories: true)
+        try mcmeta.write(to: mcmetaUrl, atomically: true, encoding: .utf8)
+        for namespace in namespaces {
+            try namespace.build(at: buildUrl)
+        }
+
+    }
+
+    private var mcmeta: String {
+        """
+        {
+            "pack": {
+                "pack_format": \(packFormat),
+                "description": "\(packName)"
+            }
+        }
+        """
+    }
+}
+
+public enum DatapackKitError: Error {
+    case buildPathError
 }
 
 public enum PackFormat: Int, RawRepresentable, CustomStringConvertible {

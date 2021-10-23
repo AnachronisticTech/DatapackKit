@@ -67,6 +67,10 @@ struct DatapackCreator {
             }
         }
 
-        print(pack)
+        do {
+            try pack.build()
+        } catch {
+            print(error)
+        }
     }
 }

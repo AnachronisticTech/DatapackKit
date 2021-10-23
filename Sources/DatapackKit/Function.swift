@@ -34,4 +34,13 @@ public struct Function: CustomStringConvertible {
             ----------------
         """
     }
+
+    internal func build(at url: URL) throws {
+        let buildUrl = url.appendingPathComponent("\(name).mcfunction")
+        try commands
+            .map { "\($0)" }
+            .joined(separator: "\n")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .write(toFile: buildUrl.relativePath, atomically: true, encoding: .utf8)
+    }
 }

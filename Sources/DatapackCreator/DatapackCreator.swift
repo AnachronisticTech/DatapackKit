@@ -43,6 +43,7 @@ struct DatapackCreator {
                 }
                 Function("myFunc2") {
                     Minecraft.Gamemode(.adventure)
+                    Convenience.Raw("setblock \(Vector3(x: .relative(), y: .relative(), z: .relative(-1))) air")
                 }
                 Advancement("MyAdvancment", title: "Advancement title!!!", description: "A custom advancment", frame: .goal, showToast: false, announceToChat: true, hidden: false) {
                     Advancement("Nested advancement")

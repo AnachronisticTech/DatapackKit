@@ -68,6 +68,12 @@ extension Minecraft {
             }
         }
 
+        public var availability: Int {
+            switch variant {
+                default: return 4
+            }
+        }
+
         enum TeleportVariant {
             case destination(EntitySelector)
             case targetDestination(EntitySelector, EntitySelector)

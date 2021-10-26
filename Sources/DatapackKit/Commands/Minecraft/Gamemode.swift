@@ -12,5 +12,7 @@ extension Minecraft {
         }
         
         public var description: String {"gamemode \(gamemode) \(entity)"}
+
+        public var availability: Int { 4 }
     }
 }

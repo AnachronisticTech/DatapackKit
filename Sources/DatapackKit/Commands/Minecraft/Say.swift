@@ -7,5 +7,7 @@ extension Minecraft {
         }
 
         public var description: String { "say \(message)" }
+
+        public var availability: Int { 4 }
     }
 }

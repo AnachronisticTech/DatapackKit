@@ -21,7 +21,7 @@ public struct Function: CustomStringConvertible, NamespaceComponent {
         """
     }
 
-    public func build(at url: URL) throws {
+    public func build(at url: URL, in namespace: String) throws {
         let buildUrl = url
             .appendingPathComponent("functions")
         try FileManager.default.createDirectory(atPath: buildUrl.relativePath, withIntermediateDirectories: true)

@@ -44,7 +44,9 @@ struct DatapackCreator {
                 Function("myFunc2") {
                     Minecraft.Gamemode(.adventure)
                 }
-                Advancement("MyAdvancment", title: "Advancement title!!!", description: "A custom advancment", frame: .goal, showToast: false, announceToChat: true, hidden: false)
+                Advancement("MyAdvancment", title: "Advancement title!!!", description: "A custom advancment", frame: .goal, showToast: false, announceToChat: true, hidden: false) {
+                    Advancement("Nested advancement")
+                }
             }
 
             Namespace("NewNamespace") {

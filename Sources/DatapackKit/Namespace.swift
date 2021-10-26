@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol NamespaceComponent {
-    func build(at url: URL) throws
+    func build(at url: URL, in namespace: String) throws
 }
 
 public struct Namespace: CustomStringConvertible {
@@ -30,8 +30,8 @@ public struct Namespace: CustomStringConvertible {
             .appendingPathComponent("data")
             .appendingPathComponent(name)
         try FileManager.default.createDirectory(atPath: buildUrl.relativePath, withIntermediateDirectories: true)
-        for function in components {
-            try function.build(at: buildUrl)
+        for component in components {
+            try component.build(at: buildUrl, in: name)
         }
     }
 }

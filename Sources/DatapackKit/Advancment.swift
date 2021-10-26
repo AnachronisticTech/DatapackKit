@@ -2,7 +2,8 @@ import Foundation
 
 public struct Advancement: CustomStringConvertible, NamespaceComponent {
     @KebabCase var name: String
-    let internalRepresentation: InternalRepresentation
+    var internalRepresentation: InternalRepresentation
+    var advancements: [Advancement]
 
     public init(
         _ name: String,
@@ -11,7 +12,8 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
         frame: Frame = .task,
         showToast: Bool? = nil,
         announceToChat: Bool? = nil,
-        hidden: Bool? = nil
+        hidden: Bool? = nil,
+        @AdvancementChainBuilder _ advancements: () -> [Advancement] = { [] }
     ) {
         self.name = name
         internalRepresentation = InternalRepresentation(
@@ -26,6 +28,28 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
             criteria: [],
             rewards: []
         )
+        self.advancements = advancements()
+    }
+
+    // Used for setting parent and namespace on child advancements
+    internal init(
+        name: String,
+        display: DisplayOptions,
+        parent: String,
+        namespace: String,
+        criteria: [String],
+        rewards: [String],
+        advancements: [Advancement] = []
+    ) {
+        self.name = name
+        self.internalRepresentation = InternalRepresentation(
+            display: display,
+            parent: parent,
+            namespace: namespace,
+            criteria: criteria,
+            rewards: rewards
+        )
+        self.advancements = advancements
     }
 
     public var description: String {
@@ -37,7 +61,7 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
         """
     }
 
-    public func build(at url: URL) throws {
+    public func build(at url: URL, in namespace: String) throws {
         let buildUrl = url
             .appendingPathComponent("advancements")
         try FileManager.default.createDirectory(atPath: buildUrl.relativePath, withIntermediateDirectories: true)
@@ -46,6 +70,20 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
         encoder.outputFormatting = .prettyPrinted
         try encoder.encode(internalRepresentation)
             .write(to: buildUrl.appendingPathComponent("\(name).json"), options: .atomic)
+
+        // Used for setting parent and namespace on child advancements
+        for advancement in advancements {
+            let temp = Advancement(
+                name: advancement.name,
+                display: advancement.internalRepresentation.display,
+                parent: name,
+                namespace: namespace,
+                criteria: advancement.internalRepresentation.criteria,
+                rewards: advancement.internalRepresentation.rewards,
+                advancements: advancement.advancements
+            )
+            try temp.build(at: url, in: namespace)
+        }
     }
 
     public enum Frame: String, Encodable {
@@ -54,8 +92,24 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
 
     struct InternalRepresentation: Encodable {
         let display: DisplayOptions
+        var parent: String? = nil
+        var namespace: String? = nil
         let criteria: [String]
         let rewards: [String]
+
+        enum CodingKeys: CodingKey {
+            case display, parent, criteria, rewards
+        }
+
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(display, forKey: .display)
+            try container.encode(criteria, forKey: .criteria)
+            try container.encode(rewards, forKey: .rewards)
+            if let parent = parent, let namespace = namespace {
+                try container.encode("\(namespace):\(parent)", forKey: .parent)
+            }
+        }
     }
 
     struct DisplayOptions: Encodable {

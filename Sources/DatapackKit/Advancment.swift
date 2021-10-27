@@ -56,8 +56,6 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
         """
           A \(name).json
             ----------------
-              <advancement body here>
-            ----------------
         """
     }
 

@@ -33,4 +33,18 @@ public enum EntitySelector: CustomStringConvertible {
             case .uuid(let uuid): return uuid.uuidString
         }
     }
+
+    public var playerType: Bool {
+        switch self {
+            case .allEntites: return false
+            default: return true
+        }
+    }
+
+    public var singlePlayerType: Bool {
+        switch self {
+            case .allEntites, .allPlayers: return false
+            default: return true
+        }
+    }
 }

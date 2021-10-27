@@ -7,6 +7,7 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
 
     public init(
         _ name: String,
+        icon: String,
         title: String? = nil,
         description: String = "",
         frame: Frame = .task,
@@ -19,6 +20,7 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
         internalRepresentation = InternalRepresentation(
             display: DisplayOptions(
                 title: title ?? name,
+                icon: icon,
                 description: description,
                 frame: frame,
                 showToast: showToast,
@@ -34,6 +36,7 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
     // Used for setting parent and namespace on child advancements
     internal init(
         name: String,
+        icon: String,
         display: DisplayOptions,
         parent: String,
         namespace: String,
@@ -73,6 +76,7 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
         for advancement in advancements {
             let temp = Advancement(
                 name: advancement.name,
+                icon: advancement.internalRepresentation.display.icon,
                 display: advancement.internalRepresentation.display,
                 parent: name,
                 namespace: namespace,
@@ -112,10 +116,37 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
 
     struct DisplayOptions: Encodable {
         let title: String
+        var icon: String
         let description: String
         let frame: Frame?
         let showToast: Bool?
         let announceToChat: Bool?
         let hidden: Bool?
+
+        var _icon: Icon {
+            get { Icon(item: icon) }
+            set { icon = newValue.item }
+        }
+
+        struct Icon: Encodable {
+            let item: String
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case title, description, frame
+            case showToast, announceToChat, hidden
+            case _icon = "icon"
+        }
+
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(title, forKey: .title)
+            try container.encode(_icon, forKey: ._icon)
+            try container.encode(description, forKey: .description)
+            try container.encodeIfPresent(frame, forKey: .frame)
+            try container.encodeIfPresent(showToast, forKey: .showToast)
+            try container.encodeIfPresent(announceToChat, forKey: .announceToChat)
+            try container.encodeIfPresent(hidden, forKey: .hidden)
+        }
     }
 }

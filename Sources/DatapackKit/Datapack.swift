@@ -1,25 +1,28 @@
 import Foundation
 
 public struct Datapack: CustomStringConvertible {
-    let packName: String
-    let packFormat: PackFormat
+    @KebabCase var name: String
+    let packDescription: String
+    let format: PackFormat
     let namespaces: [Namespace]
 
     public init(
-        packName: String,
-        packFormat: PackFormat,
+        _ name: String,
+        packDescription: String? = nil,
+        format: PackFormat,
         @DatapackBuilder _ namespaces: () -> [Namespace]
     ) {
-        self.packName = packName
-        self.packFormat = packFormat
+        self.packDescription = packDescription ?? name
+        self.name = name
+        self.format = format
         self.namespaces = namespaces()
     }
 
     public var description: String {
         """
-        Pack name: \(packName.kebabCase())
-        Description: \(packName)
-        Format: \(packFormat)
+        Pack name: \(name.kebabCase())
+        Description: \(name)
+        Format: \(format)
         ====================
         \(namespaces.map({ "\($0)\n" }).joined().trimmingCharacters(in: .newlines))
         ====================
@@ -36,7 +39,7 @@ public struct Datapack: CustomStringConvertible {
             throw DatapackKitError.buildPathError
         }
 
-        buildUrl.appendPathComponent(packName.kebabCase())
+        buildUrl.appendPathComponent(name)
         let mcmetaUrl = buildUrl.appendingPathComponent("pack.mcmeta")
 
         try? FileManager.default.removeItem(atPath: buildUrl.relativePath)
@@ -52,8 +55,8 @@ public struct Datapack: CustomStringConvertible {
         """
         {
             "pack": {
-                "pack_format": \(packFormat),
-                "description": "\(packName)"
+                "pack_format": \(format),
+                "description": "\(packDescription)"
             }
         }
         """

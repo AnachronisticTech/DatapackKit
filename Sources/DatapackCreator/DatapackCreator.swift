@@ -4,7 +4,7 @@ import DatapackKit
 struct DatapackCreator {
     static func main() {
         let players = ["Alex", "Steve", "Homer"]
-        let pack = Datapack(packName: "Build Jam Pack", packFormat: .v7) {
+        let pack = Datapack("Build Jam Pack", format: .v7) {
             Namespace("  Nam espace_1  ") {
                 Function(" mY Funct ion") {
                     Minecraft.Say("Hello \(EntitySelector.allPlayers)")

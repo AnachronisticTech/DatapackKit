@@ -57,6 +57,9 @@ public class Advancement: CustomStringConvertible, NamespaceComponent {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.outputFormatting = .prettyPrinted
+        if #available(macOS 10.13, *) {
+            encoder.outputFormatting.update(with: .sortedKeys)
+        }
         if #available(macOS 10.15, *) {
             encoder.outputFormatting.update(with: .withoutEscapingSlashes)
         }

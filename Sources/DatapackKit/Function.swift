@@ -4,6 +4,10 @@ public struct Function: CustomStringConvertible, NamespaceComponent {
     @KebabCase var name: String
     let commands: [Command]
 
+    public var namespaceName: String = ""
+    public var pathComponents: [String] = []
+    public var parentAdvancement: [String] = []
+
     public init(
         _ name: String,
         @FunctionBuilder _ commands: () -> [Command]
@@ -21,9 +25,11 @@ public struct Function: CustomStringConvertible, NamespaceComponent {
         """
     }
 
-    public func build(at url: URL, in namespace: String) throws {
-        let buildUrl = url
-            .appendingPathComponent("functions")
+    public func build(at url: URL) throws {
+        var buildUrl = url.appendingPathComponent("functions")
+        for pathComponent in pathComponents {
+            buildUrl.appendPathComponent(pathComponent)
+        }
         try FileManager.default.createDirectory(atPath: buildUrl.relativePath, withIntermediateDirectories: true)
         try commands
             .map { "\($0)" }

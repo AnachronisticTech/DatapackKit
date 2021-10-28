@@ -1,9 +1,13 @@
 import Foundation
 
-public struct Advancement: CustomStringConvertible, NamespaceComponent {
+public class Advancement: CustomStringConvertible, NamespaceComponent {
     @KebabCase var name: String
     var internalRepresentation: InternalRepresentation
-    var advancements: [Advancement]
+    var components: [NamespaceComponent]
+
+    public var namespaceName: String = ""
+    public var pathComponents: [String] = []
+    public var parentAdvancement: [String] = []
 
     public init(
         _ name: String,
@@ -14,7 +18,7 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
         showToast: Bool? = nil,
         announceToChat: Bool? = nil,
         hidden: Bool? = nil,
-        @AdvancementChainBuilder _ advancements: () -> [Advancement] = { [] }
+        @NamespaceBuilder _ components: () -> [NamespaceComponent] = { [] }
     ) {
         self.name = name
         internalRepresentation = InternalRepresentation(
@@ -30,29 +34,7 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
             criteria: [],
             rewards: []
         )
-        self.advancements = advancements()
-    }
-
-    // Used for setting parent and namespace on child advancements
-    internal init(
-        name: String,
-        icon: String,
-        display: DisplayOptions,
-        parent: String,
-        namespace: String,
-        criteria: [String],
-        rewards: [String],
-        advancements: [Advancement] = []
-    ) {
-        self.name = name
-        self.internalRepresentation = InternalRepresentation(
-            display: display,
-            parent: parent,
-            namespace: namespace,
-            criteria: criteria,
-            rewards: rewards
-        )
-        self.advancements = advancements
+        self.components = components()
     }
 
     public var description: String {
@@ -62,29 +44,30 @@ public struct Advancement: CustomStringConvertible, NamespaceComponent {
         """
     }
 
-    public func build(at url: URL, in namespace: String) throws {
-        let buildUrl = url
-            .appendingPathComponent("advancements")
+    public func build(at url: URL) throws {
+        var buildUrl = url.appendingPathComponent("advancements")
+        for pathComponent in pathComponents {
+            buildUrl.appendPathComponent(pathComponent)
+        }
+        if !parentAdvancement.isEmpty {
+            internalRepresentation.namespace = namespaceName
+            internalRepresentation.parent = parentAdvancement.joined(separator: "/")
+        }
         try FileManager.default.createDirectory(atPath: buildUrl.relativePath, withIntermediateDirectories: true)
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.outputFormatting = .prettyPrinted
+        if #available(macOS 10.15, *) {
+            encoder.outputFormatting.update(with: .withoutEscapingSlashes)
+        }
         try encoder.encode(internalRepresentation)
             .write(to: buildUrl.appendingPathComponent("\(name).json"), options: .atomic)
 
-        // Used for setting parent and namespace on child advancements
-        for advancement in advancements {
-            let temp = Advancement(
-                name: advancement.name,
-                icon: advancement.internalRepresentation.display.icon,
-                display: advancement.internalRepresentation.display,
-                parent: name,
-                namespace: namespace,
-                criteria: advancement.internalRepresentation.criteria,
-                rewards: advancement.internalRepresentation.rewards,
-                advancements: advancement.advancements
-            )
-            try temp.build(at: url, in: namespace)
+        for var component in components {
+            component.namespaceName = namespaceName
+            component.pathComponents = pathComponents
+            component.parentAdvancement = pathComponents + [name]
+            try component.build(at: url)
         }
     }
 

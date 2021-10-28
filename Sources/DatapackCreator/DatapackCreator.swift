@@ -46,8 +46,15 @@ struct DatapackCreator {
                     Convenience.Raw("setblock \(Vector3(x: .relative(), y: .relative(), z: .relative(-1))) air")
                     Minecraft.Team(modify: "myTeam", [.friendlyFire(false), .collisionRule(), .color(.black)])
                 }
+                Folder("rootFolder") {
                 Advancement("MyAdvancment", icon: "minecraft:stone", title: "Advancement title!!!", description: "A custom advancment", frame: .goal, showToast: false, announceToChat: true, hidden: false) {
-                    Advancement("Nested advancement", icon: "minecraft:cobblestone")
+                    Folder("testFolder") {
+                        Advancement("Nested advancement", icon: "minecraft:cobblestone")
+                        Function("readyForEnchanting") {
+                            Minecraft.Experience(addLevels: 30, to: .allPlayers)
+                        }
+                    }
+                }
                 }
             }
 
@@ -59,9 +66,7 @@ struct DatapackCreator {
                         }
                     }
                 }
-            }
-
-            Namespace("Hello Functions") {
+                
                 for player in players {
                     Function("greeting\(player)") {
                         for remaining in players.filter({ $0 != player }) {

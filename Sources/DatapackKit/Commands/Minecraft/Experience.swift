@@ -46,12 +46,12 @@ extension Minecraft {
 
         public var description: String {
             switch variant {
-                case let .addPoints(amount, players): return "experience add \(players) \(amount) points"
-                case let .addLevels(amount, players): return "experience add \(players) \(amount) levels"
-                case let .setPoints(amount, players): return "experience set \(players) \(amount) points"
-                case let .setLevels(amount, players): return "experience set \(players) \(amount) levels"
-                case let .queryPoints(players): return "experience query \(players) points"
-                case let .queryLevels(players): return "experience query \(players) levels"
+                case let .addPoints(amount, players): return "experience add \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) points"
+                case let .addLevels(amount, players): return "experience add \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) levels"
+                case let .setPoints(amount, players): return "experience set \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) points"
+                case let .setLevels(amount, players): return "experience set \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) levels"
+                case let .queryPoints(players): return "experience query \(players.map({ "\($0)" }).joined(separator: " ")) points"
+                case let .queryLevels(players): return "experience query \(players.map({ "\($0)" }).joined(separator: " ")) levels"
             }
         }
 

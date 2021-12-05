@@ -2,19 +2,19 @@ import struct Foundation.UUID
 
 public enum EntitySelector: CustomStringConvertible {
     /// Targets the nearest player from the command's execution. If there are multiple nearest players, caused by them being precisely the same distance away, the player who most recently joined the server is selected.
-    case nearestPlayer
+    case nearestPlayer([EntitySelectorArgument]? = nil)
 
     /// Targets a random player.
-    case randomPlayer
+    case randomPlayer([EntitySelectorArgument]? = nil)
 
     /// Targets every player, alive or not.
-    case allPlayers
+    case allPlayers([EntitySelectorArgument]? = nil)
 
     /// Targets all alive entities (including players) in loaded chunks.
-    case allEntites
+    case allEntites([EntitySelectorArgument]? = nil)
 
     /// Targets the entity (alive or not) that executed the command. It does not target anything if the command was run by a command block or server console.
-    case executor
+    case executor([EntitySelectorArgument]? = nil)
 
     /// Targets the named player.
     case namedPlayer(String)
@@ -24,11 +24,36 @@ public enum EntitySelector: CustomStringConvertible {
 
     public var description: String {
         switch self {
-            case .nearestPlayer: return "@p"
-            case .randomPlayer: return "@r"
-            case .allPlayers: return "@a"
-            case .allEntites: return "@e"
-            case .executor: return "@s"
+            case .nearestPlayer(let arguments):
+                var target = "@p"
+                if let arguments = arguments {
+                    target += "[\(arguments.map({ "\($0)" }).joined(separator: ","))]"
+                }
+                return target
+            case .randomPlayer(let arguments):
+                var target = "@r"
+                if let arguments = arguments {
+                    target += "[\(arguments.map({ "\($0)" }).joined(separator: ","))]"
+                }
+                return target
+            case .allPlayers(let arguments):
+                var target = "@a"
+                if let arguments = arguments {
+                    target += "[\(arguments.map({ "\($0)" }).joined(separator: ","))]"
+                }
+                return target
+            case .allEntites(let arguments):
+                var target = "@e"
+                if let arguments = arguments {
+                    target += "[\(arguments.map({ "\($0)" }).joined(separator: ","))]"
+                }
+                return target
+            case .executor(let arguments):
+                var target = "@s"
+                if let arguments = arguments {
+                    target += "[\(arguments.map({ "\($0)" }).joined(separator: ","))]"
+                }
+                return target
             case .namedPlayer(let name): return name
             case .uuid(let uuid): return uuid.uuidString
         }

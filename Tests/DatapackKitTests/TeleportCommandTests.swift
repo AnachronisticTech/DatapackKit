@@ -10,12 +10,12 @@ final class TeleportCommandTests: XCTestCase {
     )
 
     func testTeleportToDestinationOutput() throws {
-        let command = Minecraft.Teleport(to: .randomPlayer)
+        let command = Minecraft.Teleport(to: .randomPlayer())
         XCTAssertEqual("\(command)", "tp @r")
     }
 
     func testTeleportTargetToDestinationOutput() throws {
-        let command = Minecraft.Teleport(.executor, to: .randomPlayer)
+        let command = Minecraft.Teleport(.executor(), to: .randomPlayer())
         XCTAssertEqual("\(command)", "tp @s @r")
     }
 
@@ -25,13 +25,13 @@ final class TeleportCommandTests: XCTestCase {
     }
 
     func testTeleportTargetToLocationOutput() throws {
-        let command = Minecraft.Teleport(.executor, to: location)
+        let command = Minecraft.Teleport(.executor(), to: location)
         XCTAssertEqual("\(command)", "tp @s ~ ~2 ~-5")
     }
 
     func testTeleportTargetToLocationRotationOutput() throws {
         let command = Minecraft.Teleport(
-            .executor,
+            .executor(),
             to: location,
             withRotation: Vector2(
                 x: .absolute(0),
@@ -43,7 +43,7 @@ final class TeleportCommandTests: XCTestCase {
 
     func testTeleportTargetToLocationFacingOutput() throws {
         let command = Minecraft.Teleport(
-            .executor,
+            .executor(),
             to: location,
             facing: Vector3(
                 x: .absolute(0),
@@ -55,7 +55,7 @@ final class TeleportCommandTests: XCTestCase {
     }
 
     func testTeleportTargetToLocationFacingEntityOutput() throws {
-        let command = Minecraft.Teleport(.executor, to: location, facing: .randomPlayer)
+        let command = Minecraft.Teleport(.executor(), to: location, facing: .randomPlayer())
         XCTAssertEqual("\(command)", "tp @s ~ ~2 ~-5 facing entity @r")
     }
 }

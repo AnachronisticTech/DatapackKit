@@ -5,27 +5,27 @@ import struct Foundation.UUID
 
 final class EntitySelectorTests: XCTestCase {
     func testNearestPlayerOutput() throws {
-        let selector = EntitySelector.nearestPlayer
+        let selector = EntitySelector.nearestPlayer()
         XCTAssertEqual("\(selector)", "@p")
     }
 
     func testRandomPlayerOutput() throws {
-        let selector = EntitySelector.randomPlayer
+        let selector = EntitySelector.randomPlayer()
         XCTAssertEqual("\(selector)", "@r")
     }
 
     func testAllPlayersOutput() throws {
-        let selector = EntitySelector.allPlayers
+        let selector = EntitySelector.allPlayers()
         XCTAssertEqual("\(selector)", "@a")
     }
 
     func testAllEntitiesOutput() throws {
-        let selector = EntitySelector.allEntites
+        let selector = EntitySelector.allEntites()
         XCTAssertEqual("\(selector)", "@e")
     }
 
     func testExecutorOutput() throws {
-        let selector = EntitySelector.executor
+        let selector = EntitySelector.executor()
         XCTAssertEqual("\(selector)", "@s")
     }
 

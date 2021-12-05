@@ -7,7 +7,7 @@ struct DatapackCreator {
         let pack = Datapack("Build Jam Pack", format: .v7) {
             Namespace("  Nam espace_1  ") {
                 Function(" mY Funct ion") {
-                    Minecraft.Say("Hello \(EntitySelector.allPlayers)")
+                    Minecraft.Say("Hello \(EntitySelector.allPlayers())")
                     Minecraft.Teleport(
                         .namedPlayer("DTM5397"),
                         to: Vector3(x: .relative(), y: .relative(2), z: .absolute(-5))
@@ -19,27 +19,27 @@ struct DatapackCreator {
                     )
 
                     Minecraft.Teleport(
-                        .executor,
+                        .executor(),
                         to: Vector3(x: .relative(1), y: .absolute(5), z: .relative()),
                         withRotation: Vector2(x: .absolute(0), z: .absolute(0))
                     )
 
                     Minecraft.Teleport(
-                        .allEntites,
+                        .allEntites([.x(5), .z(-3), .distanceRange(9...12)]),
                         to:  Vector3(x: .relative(1), y: .absolute(5), z: .relative()),
-                        facing: .nearestPlayer
+                        facing: .nearestPlayer()
                     )
 
                     Minecraft.Teleport(
-                        .allPlayers,
+                        .allPlayers(),
                         to:  Vector3(x: .relative(1), y: .absolute(5), z: .relative()),
-                        facing: .executor,
+                        facing: .executor(),
                         anchor: .eyes
                     )
 
                     Minecraft.Gamemode(.creative)
 
-                    Minecraft.Say("Hello \(EntitySelector.executor)")
+                    Minecraft.Say("Hello \(EntitySelector.executor())")
                 }
                 Function("myFunc2") {
                     Minecraft.Gamemode(.adventure)
@@ -51,7 +51,7 @@ struct DatapackCreator {
                     Folder("testFolder") {
                         Advancement("Nested advancement", icon: "minecraft:cobblestone")
                         Function("readyForEnchanting") {
-                            Minecraft.Experience(addLevels: 30, to: .allPlayers)
+                            Minecraft.Experience(addLevels: 30, to: .allPlayers())
                         }
                     }
                 }
@@ -62,11 +62,11 @@ struct DatapackCreator {
                 Function("teleportInGrid") {
                     for x in stride(from: -32, through: 32, by: 16) {
                         for z in stride(from: -32, through: 32, by: 16) {
-                            Minecraft.Teleport(.executor, to: Vector3(x: .absolute(x), y: .relative(), z: .absolute(z)))
+                            Minecraft.Teleport(.executor(), to: Vector3(x: .absolute(x), y: .relative(), z: .absolute(z)))
                         }
                     }
                 }
-                
+
                 for player in players {
                     Function("greeting\(player)") {
                         for remaining in players.filter({ $0 != player }) {
@@ -77,10 +77,11 @@ struct DatapackCreator {
             }
         }
 
-        do {
-            try pack.build()
-        } catch {
-            print(error)
-        }
+        print(pack)
+        // do {
+        //     try pack.build()
+        // } catch {
+        //     print(error)
+        // }
     }
 }

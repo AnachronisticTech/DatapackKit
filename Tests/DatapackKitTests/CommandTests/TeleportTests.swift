@@ -2,7 +2,7 @@ import XCTest
 import class Foundation.Bundle
 @testable import DatapackKit
 
-final class TeleportCommandTests: XCTestCase {
+final class TeleportTests: XCTestCase {
     let location = Vector3(
         x: .relative(),
         y: .relative(2),

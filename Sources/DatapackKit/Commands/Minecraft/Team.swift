@@ -2,8 +2,8 @@ extension Minecraft {
     public struct Team: Command {
         let variant: TeamVariant
 
-        public init(teams: [String]? = nil) {
-            variant = .list(teams)
+        public init(team: String? = nil) {
+            variant = .list(team)
         }
 
         public init(add team: String, displayName: String? = nil) {
@@ -45,9 +45,9 @@ extension Minecraft {
 
         public var description: String {
             switch variant {
-                case let .list(teams):
-                    if let teams = teams {
-                        return "team list \(teams)"
+                case let .list(team):
+                    if let team = team {
+                        return "team list \(team)"
                     } else {
                         return "team list"
                     }
@@ -82,7 +82,7 @@ extension Minecraft {
         }
 
         enum TeamVariant {
-            case list([String]? = nil)
+            case list(String? = nil)
             case add(String, String? = nil)
             case remove(String)
             case empty(String)

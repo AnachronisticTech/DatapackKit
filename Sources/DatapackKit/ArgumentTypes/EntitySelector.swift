@@ -11,7 +11,7 @@ public enum EntitySelector: CustomStringConvertible {
     case allPlayers([EntitySelectorArgument]? = nil)
 
     /// Targets all alive entities (including players) in loaded chunks.
-    case allEntites([EntitySelectorArgument]? = nil)
+    case allEntities([EntitySelectorArgument]? = nil)
 
     /// Targets the entity (alive or not) that executed the command. It does not target anything if the command was run by a command block or server console.
     case executor([EntitySelectorArgument]? = nil)
@@ -42,7 +42,7 @@ public enum EntitySelector: CustomStringConvertible {
                     target += "[\(arguments.map({ "\($0)" }).joined(separator: ","))]"
                 }
                 return target
-            case .allEntites(let arguments):
+            case .allEntities(let arguments):
                 var target = "@e"
                 if let arguments = arguments {
                     target += "[\(arguments.map({ "\($0)" }).joined(separator: ","))]"
@@ -61,14 +61,14 @@ public enum EntitySelector: CustomStringConvertible {
 
     public var playerType: Bool {
         switch self {
-            case .allEntites: return false
+            case .allEntities: return false
             default: return true
         }
     }
 
     public var singlePlayerType: Bool {
         switch self {
-            case .allEntites, .allPlayers: return false
+            case .allEntities, .allPlayers: return false
             default: return true
         }
     }

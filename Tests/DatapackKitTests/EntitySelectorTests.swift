@@ -20,7 +20,7 @@ final class EntitySelectorTests: XCTestCase {
     }
 
     func testAllEntitiesOutput() throws {
-        let selector = EntitySelector.allEntites()
+        let selector = EntitySelector.allEntities()
         XCTAssertEqual("\(selector)", "@e")
     }
 

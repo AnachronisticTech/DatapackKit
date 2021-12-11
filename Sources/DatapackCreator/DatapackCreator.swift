@@ -25,7 +25,7 @@ struct DatapackCreator {
                     )
 
                     Minecraft.Teleport(
-                        .allEntites([.x(5), .z(-3), .distanceRange(9...12)]),
+                        .allEntities([.x(5), .z(-3), .distanceRange(9...12)]),
                         to:  Vector3(x: .relative(1), y: .absolute(5), z: .relative()),
                         facing: .nearestPlayer()
                     )

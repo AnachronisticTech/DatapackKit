@@ -97,6 +97,6 @@ A Swift library for writing and generating Minecraft datapacks.
 - [ ] trigger
 - [ ] weather
 - [ ] whitelist
-- [ ] worldborder
+- [x] worldborder
 
 </details>

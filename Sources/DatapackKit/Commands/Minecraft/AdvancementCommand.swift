@@ -3,42 +3,128 @@ extension Minecraft {
         let variant: Variant
 
         public init(grantEverythingTo targets: EntitySelector...) {
+            guard !targets.map({ $0.playerType }).contains(false) else {
+                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
+            }
+            guard !targets.isEmpty else {
+                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
+            }
             variant = .everything(.grant, targets)
         }
 
         public init(revokeEverythingFrom targets: EntitySelector...) {
+            guard !targets.map({ $0.playerType }).contains(false) else {
+                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
+            }
+            guard !targets.isEmpty else {
+                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
+            }
             variant = .everything(.revoke, targets)
         }
 
-        public init(grantOnly advancement: String, criterion: String? = nil, toTargets targets: EntitySelector...) {
+        public init(
+            grantOnly advancement: String,
+            criterion: String? = nil,
+            toTargets targets: EntitySelector...
+        ) {
+            guard !targets.map({ $0.playerType }).contains(false) else {
+                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
+            }
+            guard !targets.isEmpty else {
+                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
+            }
             variant = .only(.grant, targets, advancement, criterion)
         }
 
-        public init(revokeOnly advancement: String, criterion: String? = nil, toTargets targets: EntitySelector...) {
+        public init(
+            revokeOnly advancement: String,
+            criterion: String? = nil,
+            fromTargets targets: EntitySelector...
+        ) {
+            guard !targets.map({ $0.playerType }).contains(false) else {
+                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
+            }
+            guard !targets.isEmpty else {
+                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
+            }
             variant = .only(.revoke, targets, advancement, criterion)
         }
 
-        public init(grantFrom advancement: String, toTargets targets: EntitySelector...) {
+        public init(
+            grantFrom advancement: String,
+            toTargets targets: EntitySelector...
+        ) {
+            guard !targets.map({ $0.playerType }).contains(false) else {
+                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
+            }
+            guard !targets.isEmpty else {
+                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
+            }
             variant = .from(.grant, targets, advancement)
         }
 
-        public init(revokeFrom advancement: String, toTargets targets: EntitySelector...) {
+        public init(
+            revokeFrom advancement: String,
+            fromTargets targets: EntitySelector...
+        ) {
+            guard !targets.map({ $0.playerType }).contains(false) else {
+                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
+            }
+            guard !targets.isEmpty else {
+                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
+            }
             variant = .from(.revoke, targets, advancement)
         }
 
-        public init(grantThrough advancement: String, toTargets targets: EntitySelector...) {
+        public init(
+            grantThrough advancement: String,
+            toTargets targets: EntitySelector...
+        ) {
+            guard !targets.map({ $0.playerType }).contains(false) else {
+                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
+            }
+            guard !targets.isEmpty else {
+                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
+            }
             variant = .through(.grant, targets, advancement)
         }
 
-        public init(revokeThrough advancement: String, toTargets targets: EntitySelector...) {
+        public init(
+            revokeThrough advancement: String,
+            fromTargets targets: EntitySelector...
+        ) {
+            guard !targets.map({ $0.playerType }).contains(false) else {
+                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
+            }
+            guard !targets.isEmpty else {
+                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
+            }
             variant = .through(.revoke, targets, advancement)
         }
 
-        public init(grantUntil advancement: String, toTargets targets: EntitySelector...) {
+        public init(
+            grantUntil advancement: String,
+            toTargets targets: EntitySelector...
+        ) {
+            guard !targets.map({ $0.playerType }).contains(false) else {
+                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
+            }
+            guard !targets.isEmpty else {
+                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
+            }
             variant = .until(.grant, targets, advancement)
         }
 
-        public init(revokeUntil advancement: String, toTargets targets: EntitySelector...) {
+        public init(
+            revokeUntil advancement: String,
+            fromTargets targets: EntitySelector...
+        ) {
+            guard !targets.map({ $0.playerType }).contains(false) else {
+                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
+            }
+            guard !targets.isEmpty else {
+                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
+            }
             variant = .until(.revoke, targets, advancement)
         }
 

@@ -10,6 +10,9 @@ extension Minecraft {
             guard !players.map({ $0.playerType }).contains(false) else {
                 fatalError("[ERROR] Ban command may only be used with player entity selectors.")
             }
+            guard !players.isEmpty else {
+                fatalError("[ERROR] Ban command may not be used without providing at least one player entity selector.")
+            }
             self.players = players
             self.reason = reason
         }

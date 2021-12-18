@@ -9,7 +9,7 @@ final class BanTests: XCTestCase {
     }
 
     func testBanPlayerForReason() throws {
-        let command = Minecraft.Ban(.namedPlayer("Alex") , reason: "You have been banned by an administrator")
+        let command = Minecraft.Ban(.namedPlayer("Alex"), reason: "You have been banned by an administrator")
         XCTAssertEqual("\(command)", "ban Alex You have been banned by an administrator")
     }
 

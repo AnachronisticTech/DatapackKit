@@ -20,7 +20,7 @@ A Swift library for writing and generating Minecraft datapacks.
   ```swift
   // Syntax
   Minecraft.Ban(
-      _ players: EnitiySelector..., // variadic list of player entity selectors (must provide at least one)
+      _ players: EntitySelector..., // variadic list of player entity selectors (must provide at least one)
       reason: String? = nil // optional ban message
   )
 

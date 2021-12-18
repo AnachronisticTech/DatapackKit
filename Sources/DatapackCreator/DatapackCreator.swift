@@ -44,17 +44,27 @@ struct DatapackCreator {
                 Function("myFunc2") {
                     Minecraft.Gamemode(.adventure)
                     Convenience.Raw("setblock \(Vector3(x: .relative(), y: .relative(), z: .relative(-1))) air")
-                    Minecraft.Team(modify: "myTeam", [.friendlyFire(false), .collisionRule(), .color(.black)])
+                    Minecraft.Team(modify: "myTeam", .friendlyFire(false), .collisionRule(), .color(.black))
                 }
                 Folder("rootFolder") {
-                Advancement("MyAdvancment", icon: "minecraft:stone", title: "Advancement title!!!", description: "A custom advancment", frame: .goal, showToast: false, announceToChat: true, hidden: false) {
-                    Folder("testFolder") {
-                        Advancement("Nested advancement", icon: "minecraft:cobblestone")
-                        Function("readyForEnchanting") {
-                            Minecraft.Experience(addLevels: 30, to: .allPlayers())
+                    Advancement("MyAdvancement",
+                        icon: "minecraft:stone",
+                        title: "Advancement title!!!",
+                        description: "A custom advancement",
+                        frame: .goal,
+                        showToast:
+                        false,
+                        announceToChat:
+                        true,
+                        hidden: false
+                    ) {
+                        Folder("testFolder") {
+                            Advancement("Nested advancement", icon: "minecraft:cobblestone")
+                            Function("readyForEnchanting") {
+                                Minecraft.Experience(addLevels: 30, to: .allPlayers())
+                            }
                         }
                     }
-                }
                 }
             }
 

@@ -48,12 +48,12 @@ final class TeamTests: XCTestCase {
     }
 
     func testModifyTeamSingleOption() throws {
-        let command = Minecraft.Team(modify: "myTeam", [.friendlyFire()])
+        let command = Minecraft.Team(modify: "myTeam", .friendlyFire())
         XCTAssertEqual("\(command)", "team modify myTeam friendlyFire true")
     }
 
     func testModifyTeamMultipleOptions() throws {
-        let command = Minecraft.Team(modify: "myTeam", [.friendlyFire(), .color(.blue)])
+        let command = Minecraft.Team(modify: "myTeam", .friendlyFire(), .color(.blue))
         XCTAssertEqual("\(command)", "team modify myTeam friendlyFire true\nteam modify myTeam color blue")
     }
 }

@@ -39,7 +39,7 @@ extension Minecraft {
             variant = .leave(players)
         }
 
-        public init(modify team: String, _ options: [TeamOption]) {
+        public init(modify team: String, _ options: TeamOption...) {
             variant = .modify(team, options)
         }
 

@@ -1,152 +1,110 @@
 extension Minecraft {
     public struct Advancement: Command {
+        let players: [EntitySelector]
+        let mode: Mode
         let variant: Variant
 
-        public init(grantEverythingTo targets: EntitySelector...) {
-            guard !targets.map({ $0.playerType }).contains(false) else {
+        init(players: [EntitySelector], _ mode: Mode, _ variant: Variant) {
+            guard !players.map({ $0.playerType }).contains(false) else {
                 fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
             }
-            guard !targets.isEmpty else {
+            guard !players.isEmpty else {
                 fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
             }
-            variant = .everything(.grant, targets)
+            self.players = players
+            self.mode = mode
+            self.variant = variant
         }
 
-        public init(revokeEverythingFrom targets: EntitySelector...) {
-            guard !targets.map({ $0.playerType }).contains(false) else {
-                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
-            }
-            guard !targets.isEmpty else {
-                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
-            }
-            variant = .everything(.revoke, targets)
+        public init(grantEverythingTo players: EntitySelector...) {
+            self.init(players: players, .grant, .everything)
+        }
+
+        public init(revokeEverythingFrom players: EntitySelector...) {
+            self.init(players: players, .revoke, .everything)
         }
 
         public init(
             grantOnly advancement: String,
             criterion: String? = nil,
-            toTargets targets: EntitySelector...
+            toTargets players: EntitySelector...
         ) {
-            guard !targets.map({ $0.playerType }).contains(false) else {
-                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
-            }
-            guard !targets.isEmpty else {
-                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
-            }
-            variant = .only(.grant, targets, advancement, criterion)
+            self.init(players: players, .grant, .only(advancement, criterion))
         }
 
         public init(
             revokeOnly advancement: String,
             criterion: String? = nil,
-            fromTargets targets: EntitySelector...
+            fromTargets players: EntitySelector...
         ) {
-            guard !targets.map({ $0.playerType }).contains(false) else {
-                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
-            }
-            guard !targets.isEmpty else {
-                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
-            }
-            variant = .only(.revoke, targets, advancement, criterion)
+            self.init(players: players, .revoke, .only(advancement, criterion))
         }
 
         public init(
             grantFrom advancement: String,
-            toTargets targets: EntitySelector...
+            toTargets players: EntitySelector...
         ) {
-            guard !targets.map({ $0.playerType }).contains(false) else {
-                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
-            }
-            guard !targets.isEmpty else {
-                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
-            }
-            variant = .from(.grant, targets, advancement)
+            self.init(players: players, .grant, .from(advancement))
         }
 
         public init(
             revokeFrom advancement: String,
-            fromTargets targets: EntitySelector...
+            fromTargets players: EntitySelector...
         ) {
-            guard !targets.map({ $0.playerType }).contains(false) else {
-                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
-            }
-            guard !targets.isEmpty else {
-                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
-            }
-            variant = .from(.revoke, targets, advancement)
+            self.init(players: players, .revoke, .from(advancement))
         }
 
         public init(
             grantThrough advancement: String,
-            toTargets targets: EntitySelector...
+            toTargets players: EntitySelector...
         ) {
-            guard !targets.map({ $0.playerType }).contains(false) else {
-                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
-            }
-            guard !targets.isEmpty else {
-                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
-            }
-            variant = .through(.grant, targets, advancement)
+            self.init(players: players, .grant, .through(advancement))
         }
 
         public init(
             revokeThrough advancement: String,
-            fromTargets targets: EntitySelector...
+            fromTargets players: EntitySelector...
         ) {
-            guard !targets.map({ $0.playerType }).contains(false) else {
-                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
-            }
-            guard !targets.isEmpty else {
-                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
-            }
-            variant = .through(.revoke, targets, advancement)
+            self.init(players: players, .revoke, .through(advancement))
         }
 
         public init(
             grantUntil advancement: String,
-            toTargets targets: EntitySelector...
+            toTargets players: EntitySelector...
         ) {
-            guard !targets.map({ $0.playerType }).contains(false) else {
-                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
-            }
-            guard !targets.isEmpty else {
-                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
-            }
-            variant = .until(.grant, targets, advancement)
+            self.init(players: players, .grant, .until(advancement))
         }
 
         public init(
             revokeUntil advancement: String,
-            fromTargets targets: EntitySelector...
+            fromTargets players: EntitySelector...
         ) {
-            guard !targets.map({ $0.playerType }).contains(false) else {
-                fatalError("[ERROR] Advancement command may only be used with player entity selectors.")
-            }
-            guard !targets.isEmpty else {
-                fatalError("[ERROR] Advancement command may not be used without providing at least one player entity selector.")
-            }
-            variant = .until(.revoke, targets, advancement)
+            self.init(players: players, .revoke, .until(advancement))
         }
 
         public var description: String {
             func targetsToString(_ targets: [EntitySelector]) -> String {
-                return targets.filter({ $0.playerType }).map({ "\($0)" }).joined(separator: " ")
+                return targets
+                    .filter({ $0.playerType })
+                    .map({ "\($0)" })
+                    .joined(separator: " ")
             }
+
             var command = "advancement "
             switch variant {
-                case let .everything(mode, targets):
-                    command += "\(mode) \(targetsToString(targets)) everything"
-                case let .only(mode, targets, advancement, criterion):
-                    command += "\(mode) \(targetsToString(targets)) only \(advancement)"
+                case .everything:
+                    command += "\(mode) \(targetsToString(players)) everything"
+                case let .only(advancement, criterion):
+                    command += "\(mode) \(targetsToString(players)) only \(advancement)"
                     if let criterion = criterion {
                         command += " \(criterion)"
                     }
-                case let .from(mode, targets, advancement):
-                    command += "\(mode) \(targetsToString(targets)) from \(advancement)"
-                case let .through(mode, targets, advancement):
-                    command += "\(mode) \(targetsToString(targets)) through \(advancement)"
-                case let .until(mode, targets, advancement):
-                    command += "\(mode) \(targetsToString(targets)) until \(advancement)"
+                case let .from(advancement):
+                    command += "\(mode) \(targetsToString(players)) from \(advancement)"
+                case let .through(advancement):
+                    command += "\(mode) \(targetsToString(players)) through \(advancement)"
+                case let .until(advancement):
+                    command += "\(mode) \(targetsToString(players)) until \(advancement)"
             }
             return command
         }
@@ -160,11 +118,11 @@ extension Minecraft {
         }
 
         enum Variant {
-            case everything(Mode, [EntitySelector])
-            case only(Mode, [EntitySelector], String, String? = nil)
-            case from(Mode, [EntitySelector], String)
-            case through(Mode, [EntitySelector], String)
-            case until(Mode, [EntitySelector], String)
+            case everything
+            case only(String, String? = nil)
+            case from(String)
+            case through(String)
+            case until(String)
         }
     }
 }

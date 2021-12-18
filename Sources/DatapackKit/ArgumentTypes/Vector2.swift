@@ -23,5 +23,8 @@ public struct Vector2: Vector {
         self.z = .absolute(z)
     }
 
+    public static var zero: Vector2 { Vector2(x: 0, z: 0) }
+    public static var relativeZero: Vector2 { Vector2(x: .relative(), z: .relative()) }
+
     public var description: String { "\(x) \(z)" }
 }

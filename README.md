@@ -34,7 +34,7 @@ A Swift library for writing and generating Minecraft datapacks.
 - [ ] ban-ip
 - [ ] banlist
 - [ ] bossbar
-- [ ] clear
+- [x] clear
 - [x] clone
 - [ ] data
 - [x] datapack
@@ -86,14 +86,14 @@ A Swift library for writing and generating Minecraft datapacks.
 - [ ] spreadplayers
 - [ ] stop
 - [ ] stopsound
-- [ ] summon
+- [x] summon
 - [ ] tag
 - [x] team
 - [ ] teammsg tm
 - [x] teleport tp
 - [ ] tellraw
 - [ ] time
-- [ ] title
+- [x] title
 - [ ] trigger
 - [ ] weather
 - [ ] whitelist

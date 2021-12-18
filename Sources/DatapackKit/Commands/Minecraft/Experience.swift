@@ -1,6 +1,6 @@
 extension Minecraft {
     public struct Experience: Command {
-        let variant: ExperienceVariant
+        let variant: Variant
 
         public init(addPoints points: Int, to players: EntitySelector...) {
             guard !players.map({ $0.playerType }).contains(false) else {
@@ -45,23 +45,27 @@ extension Minecraft {
         }
 
         public var description: String {
+            var command = "experience "
             switch variant {
-                case let .addPoints(amount, players): return "experience add \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) points"
-                case let .addLevels(amount, players): return "experience add \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) levels"
-                case let .setPoints(amount, players): return "experience set \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) points"
-                case let .setLevels(amount, players): return "experience set \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) levels"
-                case let .queryPoints(players): return "experience query \(players.map({ "\($0)" }).joined(separator: " ")) points"
-                case let .queryLevels(players): return "experience query \(players.map({ "\($0)" }).joined(separator: " ")) levels"
+                case let .addPoints(amount, players):
+                    command += "add \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) points"
+                case let .addLevels(amount, players):
+                    command += "add \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) levels"
+                case let .setPoints(amount, players):
+                    command += "set \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) points"
+                case let .setLevels(amount, players):
+                    command += "set \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) levels"
+                case let .queryPoints(players):
+                    command += "query \(players.map({ "\($0)" }).joined(separator: " ")) points"
+                case let .queryLevels(players):
+                    command += "query \(players.map({ "\($0)" }).joined(separator: " ")) levels"
             }
+            return command
         }
 
-        public var availability: Int {
-            switch variant {
-                default: return 4
-            }
-        }
+        public var availability: Int { 4 }
 
-        enum ExperienceVariant {
+        enum Variant {
             case addPoints(Int, [EntitySelector])
             case addLevels(Int, [EntitySelector])
             case setPoints(Int, [EntitySelector])

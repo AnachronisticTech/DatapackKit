@@ -1,6 +1,6 @@
 extension Minecraft {
     public struct Datapack: Command {
-        let variant: DatapackVariant
+        let variant: Variant
 
         public init(disable name: String) {
             variant = .disable(name)
@@ -15,16 +15,19 @@ extension Minecraft {
         }
 
         public var description: String {
+            var command = "datapack "
             switch variant {
-                case let .disable(name): return "datapack disable \(name)"
+                case let .disable(name):
+                    command += "disable \(name)"
                 case let .enable(name, priority):
-                    var command = "datapack enable \(name)"
+                    command += "enable \(name)"
                     if let priority = priority {
                         command += " \(priority)"
                     }
-                    return command
-                case let .list(mode): return "datapack list \(mode)"
+                case let .list(mode):
+                    command += "list \(mode)"
             }
+            return command
         }
 
         public var availability: Int { 4 }
@@ -50,7 +53,7 @@ extension Minecraft {
             }
         }
 
-        enum DatapackVariant {
+        enum Variant {
             case disable(String)
             case enable(String, EnablePriority?)
             case list(ListMode)

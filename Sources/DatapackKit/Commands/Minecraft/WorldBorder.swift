@@ -56,17 +56,22 @@ extension Minecraft {
                     if let time = time {
                         command += " \(time)"
                     }
-                case let .center(center): command += "center \(center)"
-                case let .damageAmount(amount): command += "damage amount \(amount)"
-                case let .damageBuffer(amount): command += "damage buffer \(amount)"
+                case let .center(center):
+                    command += "center \(center)"
+                case let .damageAmount(amount):
+                    command += "damage amount \(amount)"
+                case let .damageBuffer(amount):
+                    command += "damage buffer \(amount)"
                 case .get: command += "get"
                 case let .set(distance, time):
                     command += "set \(distance)"
                     if let time = time {
                         command += " \(time)"
                     }
-                case let .warningDistance(distance): command += "warning distance \(distance)"
-                case let .warningTime(time): command += "warning time \(time)"
+                case let .warningDistance(distance):
+                    command += "warning distance \(distance)"
+                case let .warningTime(time):
+                    command += "warning time \(time)"
             }
             return command
         }

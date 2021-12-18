@@ -1,6 +1,6 @@
 extension Minecraft {
     public struct Team: Command {
-        let variant: TeamVariant
+        let variant: Variant
 
         public init(team: String? = nil) {
             variant = .list(team)
@@ -44,28 +44,29 @@ extension Minecraft {
         }
 
         public var description: String {
+            var command = "team "
             switch variant {
                 case let .list(team):
+                    command += "list"
                     if let team = team {
-                        return "team list \(team)"
-                    } else {
-                        return "team list"
+                        command += " \(team)"
                     }
                 case let .add(team, displayName):
+                    command += "add \(team)"
                     if let displayName = displayName {
-                        return "team add \(team) \(displayName)"
-                    } else {
-                        return "team add \(team)"
+                        command += " \(displayName)"
                     }
-                case let .remove(team): return "team remove \(team)"
-                case let .empty(team): return "team empty \(team)"
+                case let .remove(team):
+                    command += "remove \(team)"
+                case let .empty(team):
+                    command += "empty \(team)"
                 case let .join(team, players):
+                    command += "join \(team)"
                     if let players = players {
-                        return "team join \(team) \(players.map({ "\($0)" }).joined(separator: " "))"
-                    } else {
-                        return "team join \(team)"
+                        command += " \(players.map({ "\($0)" }).joined(separator: " "))"
                     }
-                case let .leave(players): return "team leave \(players.map({ "\($0)" }).joined(separator: " "))"
+                case let .leave(players):
+                    command += "leave \(players.map({ "\($0)" }).joined(separator: " "))"
                 case let .modify(team, options):
                     var commands = [String]()
                     for option in options {
@@ -73,15 +74,12 @@ extension Minecraft {
                     }
                     return commands.joined(separator: "\n")
             }
+            return command
         }
 
-        public var availability: Int {
-            switch variant {
-                default: return 4
-            }
-        }
+        public var availability: Int { 4 }
 
-        enum TeamVariant {
+        enum Variant {
             case list(String? = nil)
             case add(String, String? = nil)
             case remove(String)

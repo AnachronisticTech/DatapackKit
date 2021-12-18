@@ -1,5 +1,4 @@
 import XCTest
-import class Foundation.Bundle
 @testable import DatapackKit
 
 final class TeamTests: XCTestCase {

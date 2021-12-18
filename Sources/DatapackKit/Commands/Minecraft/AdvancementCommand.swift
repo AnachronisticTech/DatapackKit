@@ -1,6 +1,6 @@
 extension Minecraft {
     public struct Advancement: Command {
-        let variant: AdvancementVariant
+        let variant: Variant
 
         public init(grantEverythingTo targets: EntitySelector...) {
             variant = .everything(.grant, targets)
@@ -46,18 +46,23 @@ extension Minecraft {
             func targetsToString(_ targets: [EntitySelector]) -> String {
                 return targets.filter({ $0.playerType }).map({ "\($0)" }).joined(separator: " ")
             }
+            var command = "advancement "
             switch variant {
-                case let .everything(mode, targets): return "advancement \(mode) \(targetsToString(targets)) everything"
+                case let .everything(mode, targets):
+                    command += "\(mode) \(targetsToString(targets)) everything"
                 case let .only(mode, targets, advancement, criterion):
-                    var command = "advancement \(mode) \(targetsToString(targets)) only \(advancement)"
+                    command += "\(mode) \(targetsToString(targets)) only \(advancement)"
                     if let criterion = criterion {
                         command += " \(criterion)"
                     }
-                    return command
-                case let .from(mode, targets, advancement): return "advancement \(mode) \(targetsToString(targets)) from \(advancement)"
-                case let .through(mode, targets, advancement): return "advancement \(mode) \(targetsToString(targets)) through \(advancement)"
-                case let .until(mode, targets, advancement): return "advancement \(mode) \(targetsToString(targets)) until \(advancement)"
+                case let .from(mode, targets, advancement):
+                    command += "\(mode) \(targetsToString(targets)) from \(advancement)"
+                case let .through(mode, targets, advancement):
+                    command += "\(mode) \(targetsToString(targets)) through \(advancement)"
+                case let .until(mode, targets, advancement):
+                    command += "\(mode) \(targetsToString(targets)) until \(advancement)"
             }
+            return command
         }
 
         public var availability: Int { 4 }
@@ -68,7 +73,7 @@ extension Minecraft {
             public var description: String { rawValue }
         }
 
-        enum AdvancementVariant {
+        enum Variant {
             case everything(Mode, [EntitySelector])
             case only(Mode, [EntitySelector], String, String? = nil)
             case from(Mode, [EntitySelector], String)

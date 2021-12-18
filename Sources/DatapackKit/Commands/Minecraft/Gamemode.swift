@@ -15,13 +15,13 @@ extension Minecraft {
             self.entity = entity
             self.gamemode = gamemode
         }
-        
+
         public var description: String {
+            var command = "gamemode \(gamemode)"
             if let entity = entity {
-                return "gamemode \(gamemode) \(entity)"
-            } else {
-                return "gamemode \(gamemode)"
+                command += " \(entity)"
             }
+            return command
         }
 
         public var availability: Int { 4 }

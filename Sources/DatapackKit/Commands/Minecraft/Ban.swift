@@ -18,11 +18,11 @@ extension Minecraft {
         }
 
         public var description: String {
+            var command = "ban \(players.map({ "\($0)" }).joined(separator: " "))"
             if let reason = reason {
-                return "ban \(players.map({ "\($0)" }).joined(separator: " ")) \(reason)"
-            } else {
-                return "ban \(players.map({ "\($0)" }).joined(separator: " "))"
+                command += " \(reason)"
             }
+            return command
         }
 
         public var availability: Int { 4 }

@@ -1,5 +1,4 @@
 import XCTest
-import class Foundation.Bundle
 @testable import DatapackKit
 
 final class TeleportTests: XCTestCase {
@@ -11,22 +10,22 @@ final class TeleportTests: XCTestCase {
 
     func testTeleportToDestinationOutput() throws {
         let command = Minecraft.Teleport(to: .randomPlayer())
-        XCTAssertEqual("\(command)", "tp @r")
+        XCTAssertEqual("\(command)", "teleport @r")
     }
 
     func testTeleportTargetToDestinationOutput() throws {
         let command = Minecraft.Teleport(.executor(), to: .randomPlayer())
-        XCTAssertEqual("\(command)", "tp @s @r")
+        XCTAssertEqual("\(command)", "teleport @s @r")
     }
 
     func testTeleportToLocationOutput() throws {
         let command = Minecraft.Teleport(to: location)
-        XCTAssertEqual("\(command)", "tp ~ ~2 ~-5")
+        XCTAssertEqual("\(command)", "teleport ~ ~2 ~-5")
     }
 
     func testTeleportTargetToLocationOutput() throws {
         let command = Minecraft.Teleport(.executor(), to: location)
-        XCTAssertEqual("\(command)", "tp @s ~ ~2 ~-5")
+        XCTAssertEqual("\(command)", "teleport @s ~ ~2 ~-5")
     }
 
     func testTeleportTargetToLocationRotationOutput() throws {
@@ -38,7 +37,7 @@ final class TeleportTests: XCTestCase {
                 z: .absolute(0)
             )
         )
-        XCTAssertEqual("\(command)", "tp @s ~ ~2 ~-5 0 0")
+        XCTAssertEqual("\(command)", "teleport @s ~ ~2 ~-5 0 0")
     }
 
     func testTeleportTargetToLocationFacingOutput() throws {
@@ -51,11 +50,11 @@ final class TeleportTests: XCTestCase {
                 z: .absolute(0)
             )
         )
-        XCTAssertEqual("\(command)", "tp @s ~ ~2 ~-5 facing 0 0 0")
+        XCTAssertEqual("\(command)", "teleport @s ~ ~2 ~-5 facing 0 0 0")
     }
 
     func testTeleportTargetToLocationFacingEntityOutput() throws {
         let command = Minecraft.Teleport(.executor(), to: location, facing: .randomPlayer())
-        XCTAssertEqual("\(command)", "tp @s ~ ~2 ~-5 facing entity @r")
+        XCTAssertEqual("\(command)", "teleport @s ~ ~2 ~-5 facing entity @r")
     }
 }

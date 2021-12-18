@@ -3,15 +3,15 @@ extension Minecraft {
         let begin: Vector3
         let end: Vector3
         let destination: Vector3
-        let maskMode: MaskMode
-        let cloneMode: CloneMode
+        let maskMode: MaskMode?
+        let cloneMode: CloneMode?
 
         public init(
             begin: Vector3,
             end: Vector3,
             destination: Vector3,
-            _ maskMode: MaskMode = .replace,
-            _ cloneMode: CloneMode = .normal
+            maskMode: MaskMode? = nil,
+            cloneMode: CloneMode? = nil
         ) {
             self.begin = begin
             self.end = end
@@ -20,7 +20,16 @@ extension Minecraft {
             self.cloneMode = cloneMode
         }
 
-        public var description: String { "clone \(begin) \(end) \(destination) \(maskMode) \(cloneMode)" }
+        public var description: String {
+            var command = "clone \(begin) \(end) \(destination)"
+            if let maskMode = maskMode {
+                command += " \(maskMode)"
+            }
+            if let cloneMode = cloneMode {
+                command += " \(cloneMode)"
+            }
+            return command
+        }
 
         public var availability: Int { 4 }
 
@@ -32,7 +41,7 @@ extension Minecraft {
                 switch self {
                     case .replace: return "replace"
                     case .masked: return "masked"
-                    case let .filter(filter): return "filter \(filter)"
+                    case let .filter(filter): return "filtered \(filter)"
                 }
             }
         }

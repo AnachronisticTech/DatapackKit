@@ -21,5 +21,11 @@ public struct Vector3: Vector {
         self.z = z
     }
 
+    public init(x: Int, y: Int, z: Int) {
+        self.x = .absolute(x)
+        self.y = .absolute(y)
+        self.z = .absolute(z)
+    }
+
     public var description: String { "\(x) \(y) \(z)" }
 }

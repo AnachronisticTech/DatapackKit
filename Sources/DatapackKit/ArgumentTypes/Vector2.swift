@@ -18,5 +18,10 @@ public struct Vector2: Vector {
         self.z = z
     }
 
+    public init(x: Int, z: Int) {
+        self.x = .absolute(x)
+        self.z = .absolute(z)
+    }
+
     public var description: String { "\(x) \(z)" }
 }

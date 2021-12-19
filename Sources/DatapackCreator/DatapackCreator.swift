@@ -7,6 +7,12 @@ struct DatapackCreator {
         let pack = Datapack("Build Jam Pack", format: .v7) {
             Namespace("  Nam espace_1  ") {
                 Function(" mY Funct ion") {
+                    Convenience.After(seconds: 10) {
+                        Minecraft.Say("This is an async function!")
+                        Minecraft.Say("Changing gamemode to creative")
+                        Minecraft.Gamemode(.creative)
+                    }
+
                     Minecraft.Say("Hello \(EntitySelector.allPlayers())")
                     Minecraft.Teleport(
                         .namedPlayer("DTM5397"),
@@ -52,10 +58,8 @@ struct DatapackCreator {
                         title: "Advancement title!!!",
                         description: "A custom advancement",
                         frame: .goal,
-                        showToast:
-                        false,
-                        announceToChat:
-                        true,
+                        showToast: false,
+                        announceToChat: true,
                         hidden: false
                     ) {
                         Folder("testFolder") {
@@ -87,11 +91,11 @@ struct DatapackCreator {
             }
         }
 
-        print(pack)
-        // do {
-        //     try pack.build()
-        // } catch {
-        //     print(error)
-        // }
+        // print(pack)
+        do {
+            try pack.build()
+        } catch {
+            print(error)
+        }
     }
 }

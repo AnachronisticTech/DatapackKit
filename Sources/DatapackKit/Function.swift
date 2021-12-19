@@ -36,5 +36,11 @@ public struct Function: CustomStringConvertible, NamespaceComponent {
             .joined(separator: "\n")
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .write(toFile: buildUrl.appendingPathComponent("\(name).mcfunction").relativePath, atomically: true, encoding: .utf8)
+
+        try commands.forEach { command in
+            if let command = command as? Convenience.After {
+                try command.build(at: url.deletingLastPathComponent())
+            }
+        }
     }
 }

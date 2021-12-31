@@ -76,7 +76,7 @@ A Swift library for writing and generating Minecraft datapacks.
 - [ ] save-on
 - [x] say
 - [ ] schedule
-- [ ] scoreboard
+- [x] scoreboard
 - [ ] seed
 - [ ] setblock
 - [ ] setidletimeout

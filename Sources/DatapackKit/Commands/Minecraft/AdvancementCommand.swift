@@ -83,28 +83,21 @@ extension Minecraft {
         }
 
         public var description: String {
-            func targetsToString(_ targets: [EntitySelector]) -> String {
-                return targets
-                    .filter({ $0.playerType })
-                    .map({ "\($0)" })
-                    .joined(separator: " ")
-            }
-
             var command = "advancement "
             switch variant {
                 case .everything:
-                    command += "\(mode) \(targetsToString(players)) everything"
+                    command += "\(mode) \(players.targetsToString()) everything"
                 case let .only(advancement, criterion):
-                    command += "\(mode) \(targetsToString(players)) only \(advancement)"
+                    command += "\(mode) \(players.targetsToString()) only \(advancement)"
                     if let criterion = criterion {
                         command += " \(criterion)"
                     }
                 case let .from(advancement):
-                    command += "\(mode) \(targetsToString(players)) from \(advancement)"
+                    command += "\(mode) \(players.targetsToString()) from \(advancement)"
                 case let .through(advancement):
-                    command += "\(mode) \(targetsToString(players)) through \(advancement)"
+                    command += "\(mode) \(players.targetsToString()) through \(advancement)"
                 case let .until(advancement):
-                    command += "\(mode) \(targetsToString(players)) until \(advancement)"
+                    command += "\(mode) \(players.targetsToString()) until \(advancement)"
             }
             return command
         }

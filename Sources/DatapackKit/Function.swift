@@ -38,8 +38,19 @@ public struct Function: CustomStringConvertible, NamespaceComponent {
             .write(toFile: buildUrl.appendingPathComponent("\(name).mcfunction").relativePath, atomically: true, encoding: .utf8)
 
         try commands.forEach { command in
+            let baseUrl = url.deletingLastPathComponent()
             if let command = command as? Convenience.After {
-                try command.build(at: url.deletingLastPathComponent())
+                try command.build(at: baseUrl)
+            } else if let command = command as? Convenience.Every {
+                try command.build(at: baseUrl)
+                let commandUrl = baseUrl
+                    .appendingPathComponent(command.namespaceName)
+                    .appendingPathComponent("functions")
+                    .appendingPathComponent(command.name)
+                    .appendingPathExtension("mcfunction")
+                var contents = try String(contentsOf: commandUrl)
+                contents.append("\nschedule function \(command.namespaceName):\(command.name) \(command.time)")
+                try contents.write(to: commandUrl, atomically: true, encoding: .utf8)
             }
         }
     }

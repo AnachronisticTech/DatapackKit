@@ -51,11 +51,11 @@ extension Minecraft {
                 case .reset:
                     command += "reset"
                 case let .title(text):
-                    command += "title \(text)"
+                    command += "title \"\(text)\""
                 case let .subtitle(text):
-                    command += "subtitle \(text)"
+                    command += "subtitle \"\(text)\""
                 case let .actionBar(text):
-                    command += "actionbar \(text)"
+                    command += "actionbar \"\(text)\""
                 case let .times(fadeIn, stay, fadeOut):
                     command += "times \(fadeIn) \(stay) \(fadeOut)"
             }

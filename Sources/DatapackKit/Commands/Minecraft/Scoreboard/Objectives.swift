@@ -51,7 +51,7 @@ extension Minecraft.Scoreboard {
                 case let .add(objective, criteria, displayName):
                     command += "add \(objective) \(criteria)"
                     if let displayName = displayName {
-                        command += " \(displayName)"
+                        command += " \"\(displayName)\""
                     }
                 case let .remove(objective):
                     command += "remove \(objective)"
@@ -61,7 +61,7 @@ extension Minecraft.Scoreboard {
                         command += " \(objective)"
                     }
                 case let .modifyDisplayName(objective, displayName):
-                    command += "modify \(objective) displayname \(displayName)"
+                    command += "modify \(objective) displayname \"\(displayName)\""
                 case let .modifyRenderType(objective, renderType):
                     command += "modify \(objective) rendertype \(renderType.rawValue)"
             }

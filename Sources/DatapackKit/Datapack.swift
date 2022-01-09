@@ -42,7 +42,9 @@ public struct Datapack: CustomStringConvertible {
         buildUrl.appendPathComponent(name)
         let mcmetaUrl = buildUrl.appendingPathComponent("pack.mcmeta")
 
-        try FileManager.default.removeItem(atPath: buildUrl.relativePath)
+        if FileManager.default.fileExists(atPath: buildUrl.relativePath) {
+            try FileManager.default.removeItem(atPath: buildUrl.relativePath)
+        }
         try FileManager.default.createDirectory(atPath: buildUrl.relativePath, withIntermediateDirectories: true)
         try mcmeta.write(to: mcmetaUrl, atomically: true, encoding: .utf8)
         for namespace in namespaces {

@@ -22,7 +22,7 @@ final class TitleTests: XCTestCase {
             setTitle: text,
             for: .namedPlayer("Alex"), .namedPlayer("Steve")
         )
-        XCTAssertEqual("\(command)", "title Alex Steve title \(text)")
+        XCTAssertEqual("\(command)", "title Alex Steve title \"\(text)\"")
     }
 
     func testSetSubtitleForPlayers() throws {
@@ -30,7 +30,7 @@ final class TitleTests: XCTestCase {
             setSubtitle: text,
             for: .namedPlayer("Alex"), .namedPlayer("Steve")
         )
-        XCTAssertEqual("\(command)", "title Alex Steve subtitle \(text)")
+        XCTAssertEqual("\(command)", "title Alex Steve subtitle \"\(text)\"")
     }
 
     func testSetActionBarTextForPlayers() throws {
@@ -38,7 +38,7 @@ final class TitleTests: XCTestCase {
             setActionBarText: text,
             for: .namedPlayer("Alex"), .namedPlayer("Steve")
         )
-        XCTAssertEqual("\(command)", "title Alex Steve actionbar \(text)")
+        XCTAssertEqual("\(command)", "title Alex Steve actionbar \"\(text)\"")
     }
 
     func testSetTitleTimingsForPlayers() throws {

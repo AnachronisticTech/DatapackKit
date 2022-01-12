@@ -1,4 +1,4 @@
-extension Minecraft.Scoreboard {
+extension Minecraft.Commands.Scoreboard {
     public struct Players: Command {
         let variant: Variant
 

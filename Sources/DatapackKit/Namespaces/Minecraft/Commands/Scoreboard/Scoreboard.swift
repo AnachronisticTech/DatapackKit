@@ -1,3 +1,3 @@
-extension Minecraft {
+extension Minecraft.Commands {
     public enum Scoreboard {}
 }

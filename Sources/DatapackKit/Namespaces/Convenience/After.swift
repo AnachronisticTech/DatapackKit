@@ -20,7 +20,7 @@ extension Convenience {
                 .kebabCase()
             self.name = "schedule-function-\(hash)"
             self.namespaceName = "datapack-kit-scheduled-functions"
-            self.function = Function(name, commands)
+            self.function = Function(name) { _ in commands() }
         }
 
         public init(

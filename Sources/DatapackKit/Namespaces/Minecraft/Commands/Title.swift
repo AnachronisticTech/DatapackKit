@@ -1,4 +1,4 @@
-extension Minecraft {
+extension Minecraft.Commands {
     public struct Title: Command {
         let players: [EntitySelector]
         let variant: Variant

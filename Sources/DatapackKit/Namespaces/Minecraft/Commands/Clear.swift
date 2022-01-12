@@ -1,4 +1,4 @@
-extension Minecraft {
+extension Minecraft.Commands {
     public struct Clear: Command {
         let players: [EntitySelector]
         let item: String?

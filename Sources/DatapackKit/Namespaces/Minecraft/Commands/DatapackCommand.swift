@@ -1,4 +1,4 @@
-extension Minecraft {
+extension Minecraft.Commands {
     public struct Datapack: Command {
         let variant: Variant
 

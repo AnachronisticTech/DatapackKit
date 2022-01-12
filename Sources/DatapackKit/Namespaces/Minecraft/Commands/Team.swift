@@ -1,4 +1,4 @@
-extension Minecraft {
+extension Minecraft.Commands {
     public struct Team: Command {
         let variant: Variant
 

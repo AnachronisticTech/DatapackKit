@@ -5,54 +5,54 @@ struct DatapackCreator {
     static func main() {
         let players = ["Alex", "Steve", "Homer"]
         let pack = Datapack("Build Jam Pack", format: .v7) {
-            Namespace("  Nam espace_1  ") {
-                Function(" mY Funct ion") {
+            Namespace("  Nam espace_1  ") { _ in
+                Function(" mY Funct ion") { _ in
                     Convenience.After(seconds: 10) {
-                        Minecraft.Say("This is an async function!")
-                        Minecraft.Say("Changing gamemode to creative")
-                        Minecraft.Gamemode(.creative)
+                        Minecraft.Commands.Say("This is an async function!")
+                        Minecraft.Commands.Say("Changing gamemode to creative")
+                        Minecraft.Commands.Gamemode(.creative)
                     }
 
-                    Minecraft.Say("Hello \(EntitySelector.allPlayers())")
-                    Minecraft.Teleport(
+                    Minecraft.Commands.Say("Hello \(EntitySelector.allPlayers())")
+                    Minecraft.Commands.Teleport(
                         .namedPlayer("DTM5397"),
                         to: Vector3(x: .relative(), y: .relative(2), z: .absolute(-5))
                     )
 
-                    Minecraft.Teleport(
+                    Minecraft.Commands.Teleport(
                         .namedPlayer("DTM5397"),
                         to: Vector3(x: .local(-20), y: .local(2), z: .local(-5))
                     )
 
-                    Minecraft.Teleport(
+                    Minecraft.Commands.Teleport(
                         .executor(),
                         to: Vector3(x: .relative(1), y: .absolute(5), z: .relative()),
                         withRotation: Vector2(x: .absolute(0), z: .absolute(0))
                     )
 
-                    Minecraft.Teleport(
+                    Minecraft.Commands.Teleport(
                         .allEntities([.x(5), .z(-3), .distanceRange(9...12)]),
                         to:  Vector3(x: .relative(1), y: .absolute(5), z: .relative()),
                         facing: .nearestPlayer()
                     )
 
-                    Minecraft.Teleport(
+                    Minecraft.Commands.Teleport(
                         .allPlayers(),
                         to:  Vector3(x: .relative(1), y: .absolute(5), z: .relative()),
                         facing: .executor(),
                         anchor: .eyes
                     )
 
-                    Minecraft.Gamemode(.creative)
+                    Minecraft.Commands.Gamemode(.creative)
 
-                    Minecraft.Say("Hello \(EntitySelector.executor())")
+                    Minecraft.Commands.Say("Hello \(EntitySelector.executor())")
                 }
-                Function("myFunc2") {
-                    Minecraft.Gamemode(.adventure)
+                Function("myFunc2") { _ in
+                    Minecraft.Commands.Gamemode(.adventure)
                     Convenience.Raw("setblock \(Vector3(x: .relative(), y: .relative(), z: .relative(-1))) air")
-                    Minecraft.Team(modify: "myTeam", .friendlyFire(false), .collisionRule(), .color(.black))
+                    Minecraft.Commands.Team(modify: "myTeam", .friendlyFire(false), .collisionRule(), .color(.black))
                 }
-                Folder("rootFolder") {
+                Folder("rootFolder") { _ in
                     Advancement("MyAdvancement",
                         icon: "minecraft:stone",
                         title: "Advancement title!!!",
@@ -62,29 +62,29 @@ struct DatapackCreator {
                         announceToChat: true,
                         hidden: false
                     ) {
-                        Folder("testFolder") {
+                        Folder("testFolder") { _ in
                             Advancement("Nested advancement", icon: "minecraft:cobblestone")
-                            Function("readyForEnchanting") {
-                                Minecraft.Experience(addLevels: 30, to: .allPlayers())
+                            Function("readyForEnchanting") { _ in
+                                Minecraft.Commands.Experience(addLevels: 30, to: .allPlayers())
                             }
                         }
                     }
                 }
             }
 
-            Namespace("NewNamespace") {
-                Function("teleportInGrid") {
+            Namespace("NewNamespace") { _ in
+                Function("teleportInGrid") { _ in
                     for x in stride(from: -32, through: 32, by: 16) {
                         for z in stride(from: -32, through: 32, by: 16) {
-                            Minecraft.Teleport(.executor(), to: Vector3(x: .absolute(x), y: .relative(), z: .absolute(z)))
+                            Minecraft.Commands.Teleport(.executor(), to: Vector3(x: .absolute(x), y: .relative(), z: .absolute(z)))
                         }
                     }
                 }
 
                 for player in players {
-                    Function("greeting\(player)") {
+                    Function("greeting\(player)") { _ in
                         for remaining in players.filter({ $0 != player }) {
-                            Minecraft.Say("hi \(remaining)")
+                            Minecraft.Commands.Say("hi \(remaining)")
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-extension Minecraft {
+extension Minecraft.Commands {
     public struct Teleport: Command {
         let variant: Variant
 

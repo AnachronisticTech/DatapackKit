@@ -10,10 +10,10 @@ public struct Function: CustomStringConvertible, NamespaceComponent {
 
     public init(
         _ name: String,
-        @FunctionBuilder _ commands: () -> [Command]
+        @FunctionBuilder _ commands: (String) -> [Command]
     ) {
         self.name = name
-        self.commands = commands()
+        self.commands = commands(name.kebabCase())
     }
 
     public var description: String {

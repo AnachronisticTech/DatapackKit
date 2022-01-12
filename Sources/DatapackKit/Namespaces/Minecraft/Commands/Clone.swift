@@ -1,4 +1,4 @@
-extension Minecraft {
+extension Minecraft.Commands {
     public struct Clone: Command {
         let begin: Vector3
         let end: Vector3

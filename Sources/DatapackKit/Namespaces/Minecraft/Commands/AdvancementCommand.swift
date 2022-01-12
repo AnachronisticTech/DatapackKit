@@ -1,4 +1,4 @@
-extension Minecraft {
+extension Minecraft.Commands {
     public struct Advancement: Command {
         let players: [EntitySelector]
         let mode: Mode

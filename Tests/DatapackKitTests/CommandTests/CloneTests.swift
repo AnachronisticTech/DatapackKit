@@ -8,7 +8,7 @@ final class CloneTests: XCTestCase {
     let filter = "minecraft:cobblestone"
 
     func testClone() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination
@@ -17,7 +17,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneForce() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -27,7 +27,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneMove() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -37,7 +37,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneNormal() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -47,7 +47,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneReplace() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -57,7 +57,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneReplaceForce() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -68,7 +68,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneReplaceMove() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -79,7 +79,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneReplaceNormal() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -90,7 +90,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneMasked() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -100,7 +100,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneMaskedForce() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -111,7 +111,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneMaskedMove() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -122,7 +122,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneMaskedNormal() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -133,7 +133,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneFiltered() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -143,7 +143,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneFilteredForce() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -154,7 +154,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneFilteredMove() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,
@@ -165,7 +165,7 @@ final class CloneTests: XCTestCase {
     }
 
     func testCloneFilteredNormal() throws {
-        let command = Minecraft.Clone(
+        let command = Minecraft.Commands.Clone(
             begin: begin,
             end: end,
             destination: destination,

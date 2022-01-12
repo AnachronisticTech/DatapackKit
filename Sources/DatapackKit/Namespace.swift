@@ -14,10 +14,10 @@ public class Namespace: CustomStringConvertible {
 
     public init(
         _ name: String, 
-        @NamespaceBuilder _ components: () -> [NamespaceComponent]
+        @NamespaceBuilder _ components: (String) -> [NamespaceComponent]
     ) {
         self.name = name
-        self.components = components()
+        self.components = components(name.kebabCase())
     }
 
     public var description: String { 

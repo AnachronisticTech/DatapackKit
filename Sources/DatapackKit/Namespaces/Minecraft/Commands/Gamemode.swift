@@ -1,4 +1,4 @@
-extension Minecraft {
+extension Minecraft.Commands {
     public struct Gamemode: Command {
         let entity: EntitySelector?
         let gamemode: GamemodeType

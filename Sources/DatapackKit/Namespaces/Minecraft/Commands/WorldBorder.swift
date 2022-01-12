@@ -1,5 +1,5 @@
-extension Minecraft {
-    /// Commands to control the world border.
+extension Minecraft.Commands {
+    /// Namespaces to control the world border.
     public struct WorldBorder: Command {
         let variant: Variant
 

@@ -8,17 +8,17 @@ final class TitleTests: XCTestCase {
     let fadeOut = 9
 
     func testClearTitleFromPlayers() throws {
-        let command = Minecraft.Title(clearFrom: .namedPlayer("Alex"), .namedPlayer("Steve"))
+        let command = Minecraft.Commands.Title(clearFrom: .namedPlayer("Alex"), .namedPlayer("Steve"))
         XCTAssertEqual("\(command)", "title Alex Steve clear")
     }
 
     func testResetTitleForPlayers() throws {
-        let command = Minecraft.Title(resetFor: .namedPlayer("Alex"), .namedPlayer("Steve"))
+        let command = Minecraft.Commands.Title(resetFor: .namedPlayer("Alex"), .namedPlayer("Steve"))
         XCTAssertEqual("\(command)", "title Alex Steve reset")
     }
 
     func testSetTitleForPlayers() throws {
-        let command = Minecraft.Title(
+        let command = Minecraft.Commands.Title(
             setTitle: text,
             for: .namedPlayer("Alex"), .namedPlayer("Steve")
         )
@@ -26,7 +26,7 @@ final class TitleTests: XCTestCase {
     }
 
     func testSetSubtitleForPlayers() throws {
-        let command = Minecraft.Title(
+        let command = Minecraft.Commands.Title(
             setSubtitle: text,
             for: .namedPlayer("Alex"), .namedPlayer("Steve")
         )
@@ -34,7 +34,7 @@ final class TitleTests: XCTestCase {
     }
 
     func testSetActionBarTextForPlayers() throws {
-        let command = Minecraft.Title(
+        let command = Minecraft.Commands.Title(
             setActionBarText: text,
             for: .namedPlayer("Alex"), .namedPlayer("Steve")
         )
@@ -42,7 +42,7 @@ final class TitleTests: XCTestCase {
     }
 
     func testSetTitleTimingsForPlayers() throws {
-        let command = Minecraft.Title(
+        let command = Minecraft.Commands.Title(
             fadeIn: fadeIn,
             stay: stay,
             fadeOut: fadeOut,

@@ -10,10 +10,10 @@ public class Folder: NamespaceComponent {
 
     public init(
         _ name: String,
-        @NamespaceBuilder _ components: () -> [NamespaceComponent] = { [] }
+        @NamespaceBuilder _ components: (String) -> [NamespaceComponent] = { _ in [] }
     ) {
         self.name = name
-        self.components = components()
+        self.components = components(name.kebabCase())
     }
 
     public func build(at url: URL) throws {

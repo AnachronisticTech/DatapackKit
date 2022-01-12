@@ -1,4 +1,4 @@
-extension Minecraft {
+extension Minecraft.Commands {
     public struct Summon: Command {
         let entity: String
         let position: Vector3?

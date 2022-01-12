@@ -7,17 +7,17 @@ final class SummonTests: XCTestCase {
     let nbt = "{}"
 
     func testSummonEntity() throws {
-        let command = Minecraft.Summon(entity)
+        let command = Minecraft.Commands.Summon(entity)
         XCTAssertEqual("\(command)", "summon \(entity)")
     }
 
     func testSummonEntityAtPosition() throws {
-        let command = Minecraft.Summon(entity, position: position)
+        let command = Minecraft.Commands.Summon(entity, position: position)
         XCTAssertEqual("\(command)", "summon \(entity) \(position)")
     }
 
     func testSummonEntityAtPositionWithNBT() throws {
-        let command = Minecraft.Summon(entity, position: position, nbt: nbt)
+        let command = Minecraft.Commands.Summon(entity, position: position, nbt: nbt)
         XCTAssertEqual("\(command)", "summon \(entity) \(position) \(nbt)")
     }
 }

@@ -1,4 +1,4 @@
-extension Minecraft {
+extension Minecraft.Commands {
     public struct Ban: Command {
         let players: [EntitySelector]
         let reason: String?

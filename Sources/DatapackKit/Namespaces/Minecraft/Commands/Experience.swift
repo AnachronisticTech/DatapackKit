@@ -48,17 +48,17 @@ extension Minecraft.Commands {
             var command = "experience "
             switch variant {
                 case let .addPoints(amount, players):
-                    command += "add \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) points"
+                    command += "add \(players.targetsToString()) \(amount) points"
                 case let .addLevels(amount, players):
-                    command += "add \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) levels"
+                    command += "add \(players.targetsToString()) \(amount) levels"
                 case let .setPoints(amount, players):
-                    command += "set \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) points"
+                    command += "set \(players.targetsToString()) \(amount) points"
                 case let .setLevels(amount, players):
-                    command += "set \(players.map({ "\($0)" }).joined(separator: " ")) \(amount) levels"
+                    command += "set \(players.targetsToString()) \(amount) levels"
                 case let .queryPoints(players):
-                    command += "query \(players.map({ "\($0)" }).joined(separator: " ")) points"
+                    command += "query \(players.targetsToString()) points"
                 case let .queryLevels(players):
-                    command += "query \(players.map({ "\($0)" }).joined(separator: " ")) levels"
+                    command += "query \(players.targetsToString()) levels"
             }
             return command
         }

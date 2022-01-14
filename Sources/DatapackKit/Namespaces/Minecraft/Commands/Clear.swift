@@ -20,7 +20,7 @@ extension Minecraft.Commands {
         public var description: String {
             var command = "clear"
             if !players.isEmpty {
-                command += " \(players.map({ "\($0)" }).joined(separator: " "))"
+                command += " \(players.targetsToString())"
             }
             if let item = item {
                 command += " \(item)"

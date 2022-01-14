@@ -63,10 +63,10 @@ extension Minecraft.Commands {
                 case let .join(team, players):
                     command += "join \(team)"
                     if let players = players {
-                        command += " \(players.map({ "\($0)" }).joined(separator: " "))"
+                        command += " \(players.targetsToString())"
                     }
                 case let .leave(players):
-                    command += "leave \(players.map({ "\($0)" }).joined(separator: " "))"
+                    command += "leave \(players.targetsToString())"
                 case let .modify(team, options):
                     var commands = [String]()
                     for option in options {

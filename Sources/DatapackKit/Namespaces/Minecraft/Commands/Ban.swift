@@ -18,7 +18,7 @@ extension Minecraft.Commands {
         }
 
         public var description: String {
-            var command = "ban \(players.map({ "\($0)" }).joined(separator: " "))"
+            var command = "ban \(players.targetsToString())"
             if let reason = reason {
                 command += " \(reason)"
             }

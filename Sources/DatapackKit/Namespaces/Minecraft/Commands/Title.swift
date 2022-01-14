@@ -44,7 +44,7 @@ extension Minecraft.Commands {
         }
 
         public var description: String {
-            var command = "title \(players.map({ "\($0)" }).joined(separator: " ")) "
+            var command = "title \(players.targetsToString()) "
             switch variant {
                 case .clear:
                     command += "clear"

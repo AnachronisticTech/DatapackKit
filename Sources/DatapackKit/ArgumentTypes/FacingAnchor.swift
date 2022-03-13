@@ -1,5 +1,3 @@
-public enum FacingAnchor: String, RawRepresentable {
+public enum FacingAnchor: String {
     case eyes, feet
-
-    public var description: String { self.rawValue }
 }

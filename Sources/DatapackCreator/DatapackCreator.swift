@@ -64,11 +64,18 @@ struct DatapackCreator {
                     ) {
                         Folder("testFolder") { _ in
                             Advancement("Nested advancement", icon: "minecraft:cobblestone")
+                                .icon("minecraft:cobblestone")
+                                .frame(.challenge)
+                                .showToast(true)
+                                .announceToChat(false)
+                                .isHidden(true)
                             Function("readyForEnchanting") { _ in
                                 Minecraft.Commands.Experience(addLevels: 30, to: .allPlayers())
                             }
                         }
                     }
+                    .title("Better Advancement Title")
+                    .description("This advancement now has a more detailed description.")
                 }
             }
 

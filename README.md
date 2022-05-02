@@ -48,7 +48,7 @@ A Swift library for writing and generating Minecraft datapacks.
 - [x] experience xp
 - [ ] fill
 - [ ] forceload
-- [ ] function
+- [x] function
 - [x] gamemode
 - [ ] gamerule
 - [ ] give
@@ -75,7 +75,7 @@ A Swift library for writing and generating Minecraft datapacks.
 - [ ] save-off
 - [ ] save-on
 - [x] say
-- [ ] schedule
+- [x] schedule
 - [x] scoreboard
 - [ ] seed
 - [ ] setblock

@@ -79,7 +79,7 @@ public class Advancement: CustomStringConvertible, NamespaceComponent {
     }
 
     struct InternalRepresentation: Encodable {
-        let display: DisplayOptions
+        var display: DisplayOptions
         var parent: String? = nil
         var namespace: String? = nil
         let criteria: [String]
@@ -101,13 +101,13 @@ public class Advancement: CustomStringConvertible, NamespaceComponent {
     }
 
     struct DisplayOptions: Encodable {
-        let title: String
+        var title: String
         var icon: String
-        let description: String
-        let frame: Frame?
-        let showToast: Bool?
-        let announceToChat: Bool?
-        let hidden: Bool?
+        var description: String
+        var frame: Frame?
+        var showToast: Bool?
+        var announceToChat: Bool?
+        var hidden: Bool?
 
         var _icon: Icon {
             get { Icon(item: icon) }
@@ -134,5 +134,41 @@ public class Advancement: CustomStringConvertible, NamespaceComponent {
             try container.encodeIfPresent(announceToChat, forKey: .announceToChat)
             try container.encodeIfPresent(hidden, forKey: .hidden)
         }
+    }
+}
+
+public extension Advancement {
+    func title(_ title: String) -> Self {
+        internalRepresentation.display.title = title
+        return self
+    }
+
+    func description(_ description: String) -> Self {
+        internalRepresentation.display.description = description
+        return self
+    }
+    func icon(_ icon: String) -> Self {
+        internalRepresentation.display.icon = icon
+        return self
+    }
+
+    func frame(_ frame: Frame) -> Self {
+        internalRepresentation.display.frame = frame
+        return self
+    }
+
+    func showToast(_ toast: Bool) -> Self {
+        internalRepresentation.display.showToast = toast
+        return self
+    }
+
+    func announceToChat(_ announceToChat: Bool) -> Self {
+        internalRepresentation.display.announceToChat = announceToChat
+        return self
+    }
+
+    func isHidden(_ hidden: Bool) -> Self {
+        internalRepresentation.display.hidden = hidden
+        return self
     }
 }
